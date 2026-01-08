@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Stenographie"
         mc:Ignorable="d"
-        Title="Stenographie" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Stenographie" Height="450" Width="815" ResizeMode="NoResize">
     <Grid>
         <Button Content="Datei Auswählen" HorizontalAlignment="Left" Height="23" Margin="10,17,0,0" VerticalAlignment="Top" Width="92" Click="Button_Datei_Auswahl_Click"/>
         <Button Content="BMP Auswählen" HorizontalAlignment="Left" Height="23" Margin="10,45,0,0" VerticalAlignment="Top" Width="92" Click="Button_BMP_Auswählen_Click" RenderTransformOrigin="-0.188,0.479"/>
