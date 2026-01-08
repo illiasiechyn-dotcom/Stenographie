@@ -42,7 +42,7 @@ Die Daten werden so gespeichert:
 
 ## Projektstruktur
 
-Stenographie/
+Stenographie
 │
 ├── MainWindow.xaml → UI Layout
 ├── MainWindow.xaml.cs → UI Logik
