@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
+using System.Linq;
+using System.Windows;
 
 namespace Stenographie
 {
@@ -12,11 +13,15 @@ namespace Stenographie
         {
             if (!File.Exists(s_DateiPfad))
             {
+                MessageBox.Show("Fehler: BMP ist existiert nicht", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 
             if(KapazitaetBerechnen(s_DateiPfad) <= 0)
-            { return false; }
+            {
+                MessageBox.Show("Fehler: BMP ist nicht groß genug", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false; 
+            }
 
             FileStream fs = new FileStream(s_DateiPfad, FileMode.Open, FileAccess.Read);
             BinaryReader br = new BinaryReader(fs);
@@ -29,6 +34,7 @@ namespace Stenographie
             {
                 br.Close();
                 fs.Close();
+                MessageBox.Show("Fehler: BMP hat keine Magic Bits", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 
@@ -37,8 +43,14 @@ namespace Stenographie
 
             br.Close();
             fs.Close();
-
-            return sh_BitTiefe == 24;
+            if(sh_BitTiefe != 24) 
+            { 
+            return false;
+            }
+            else {
+                return true;
+            }
+                
         }
         public static int KapazitaetBerechnen(string s_DateiPfad)
         {
