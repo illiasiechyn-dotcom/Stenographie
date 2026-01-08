@@ -1,0 +1,30 @@
+﻿<Window x:Class="Stenographie.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Stenographie"
+        mc:Ignorable="d"
+        Title="Stenographie" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid>
+        <Button Content="Datei Auswählen" HorizontalAlignment="Left" Height="23" Margin="10,17,0,0" VerticalAlignment="Top" Width="92" Click="Button_Datei_Auswahl_Click"/>
+        <Button Content="BMP Auswählen" HorizontalAlignment="Left" Height="23" Margin="10,45,0,0" VerticalAlignment="Top" Width="92" Click="Button_BMP_Auswählen_Click" RenderTransformOrigin="-0.188,0.479"/>
+        <Button Content="Verstecken" HorizontalAlignment="Left" Height="30" Margin="10,77,0,0" VerticalAlignment="Top" Width="390" Click="Button_Verstecken_Click"/>
+        <Button Content="Rausholen" HorizontalAlignment="Left" Height="30" Margin="405,77,0,0" VerticalAlignment="Top" Width="385" Click="Button_Rausholen_Click"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,107,0,284" TextWrapping="Wrap"><Run Text="B"/><Run Language="de-de" Text="MP"/><Run Text=" Vorschau"/><LineBreak/><Run/></TextBlock>
+        <Image x:Name="BMPVorher" Height="225" Width="400" Margin="0,178,400,6">
+            <Image.Source>
+                <BitmapImage DecodePixelWidth="400" UriSource=""/>
+            </Image.Source>
+        </Image>
+        <Image x:Name="BMPnachher" Height="225" Width="400" Margin="400,178,2,6">
+            <Image.Source>
+                <BitmapImage DecodePixelWidth="400" UriSource=""/>
+            </Image.Source>
+        </Image>
+        <TextBlock HorizontalAlignment="Left" Margin="165,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="de-de" Text="Vorher"/><LineBreak/><Run/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="598,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="de-de" Text="Nachher"/><LineBreak/><Run Language="de-de"/></TextBlock>
+        <TextBox x:Name="textBoxDateiPfad" HorizontalAlignment="Left" Margin="107,20,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="683" TextChanged="textBoxDateiPfad_TextChanged" AllowDrop="True" />
+        <TextBox x:Name="textBoxBMPPfad" HorizontalAlignment="Left" Margin="107,48,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="683" TextChanged="textBoxBMPPfad_TextChanged" AllowDrop="True"/>
+    </Grid>
+</Window>
