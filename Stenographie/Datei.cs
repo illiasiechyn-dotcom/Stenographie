@@ -44,7 +44,7 @@ namespace Stenographie
         {
             if (!BMP.IstGueltigesBmp(s_BMPpfad))
             {
-                MessageBox.Show("Fehler: BMP ist nicht gütig", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                
             }
             else
             {
@@ -74,7 +74,7 @@ namespace Stenographie
         {
             if (!BMP.IstGueltigesBmp(s_BMPpfad))
             {
-                MessageBox.Show("Fehler: BMP ist nicht gütig", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+               
             }
             else
             {
