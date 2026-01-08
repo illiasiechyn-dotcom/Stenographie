@@ -41,7 +41,7 @@ Die Daten werden so gespeichert:
 
 
 ## Projektstruktur
-`
+
 Stenographie/
 │
 ├── MainWindow.xaml → UI Layout
@@ -53,7 +53,7 @@ Stenographie/
 ├── BMP.cs → BMP-Prüfung & Kapazitätsberechnung
 │
 └── Stenographie.csproj
-`
+
 
 
 ## Installation
