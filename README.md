@@ -6,25 +6,34 @@ Zur besseren Kapazitätsausnutzung werden die eingebetteten Daten mittels **Run-
 
 ## Features
 
-✔ Verstecken beliebiger Dateien in BMP-Bildern  
-✔ Wiederherstellen der Originaldateien  
-✔ Verlustfreie RLE-Kompression  
-✔ LSB-Steganographie auf Byte-Ebene  
-✔ `.bak`-Backup der Original-BMP  
-✔ Visuelle Vorher/Nachher-Vorschau  
-✔ Fehler- und Kapazitätsprüfungen  
+    Dateiversteckung – Einbetten beliebiger Dateien in 24-Bit-BMP-Bilder
+
+    Datenwiederherstellung – Verlustfreie Extraktion der Originaldateien
+
+    RLE-Kompression – Run-Length Encoding für optimierte Kapazitätsauslastung
+
+    LSB-Steganographie – Least Significant Bit-Verfahren auf Byte-Ebene
+
+    Automatisches Backup – Sicherung des Original-BMP als .bak-Datei
+
+    Visuelle Vorschau – Vorher/Nachher-Darstellung der BMP-Dateien
+
+    Integrierte Validierung – Formatprüfung und Kapazitätskontrolle 
 
 
 ## Funktionsweise
 
-1. Datei einlesen
-2. RLE-Kompressionsverfahren anwenden
-3. Länge + Daten in Bits umwandeln
-4. Bits in LSB der Pixeldaten schreiben
-5. Dateiextraktion umgekehrt (LSB → Bits → Bytes → Dekompression)
+    Kompression – Quelldatei wird mit RLE-Algorithmus komprimiert
 
-Die Daten werden so gespeichert:
-[4 Bytes Länge] + [komprimierte Nutzdaten]
+    Datenaufbereitung – Länge (4 Byte) + komprimierte Daten in Bitstream konvertiert
+
+    LSB-Einbettung – Bits werden in die niederwertigen Bits der RGB-Pixel geschrieben
+
+    Speicherung – Modifiziertes BMP wird gespeichert, Original als Backup erhalten
+
+    Extraktion – Umgekehrter Prozess: LSB-Auslesen → Dekompression → Originaldatei
+
+Datenstruktur: [4-Byte-Längenfeld] + [RLE-komprimierte Nutzdaten]
 
 
 ## Technologien
@@ -41,19 +50,16 @@ Die Daten werden so gespeichert:
 
 
 ## Projektstruktur
-`
+
 Stenographie/
-│
-├── MainWindow.xaml → UI Layout
-├── MainWindow.xaml.cs → UI Logik
-│
-├── Datei.cs → Ein-/Ausgabe + Backup + Workflow
-├── RLE.cs → Run-Length-Encoding
-├── LSB.cs → Einbettung/Extraktion via LSB
-├── BMP.cs → BMP-Prüfung & Kapazitätsberechnung
-│
-└── Stenographie.csproj
-`
+├── MainWindow.xaml              # WPF-Benutzeroberfläche
+├── MainWindow.xaml.cs           # UI-Ereignisbehandlung und Steuerung
+├── Datei.cs                     # Datei-E/A, Backup-Logik und Workflow-Management
+├── RLE.cs                       # RLE-Kompressions- und Dekompressionsroutine
+├── LSB.cs                       # LSB-Einbettungs- und Extraktionsengine
+├── BMP.cs                       # BMP-Validierung und Kapazitätsberechnung
+└── Stenographie.csproj          .NET-Projektkonfiguration
+
 
 
 ## Installation
@@ -79,10 +85,10 @@ oder via CLI:
 
 ## Bedienung
 
-1. Datei auswählen → beliebige Datei
-2. BMP auswählen → nur 24-Bit-BMP unterstützt
-3. Verstecken drücken → Datei wird eingebettet
-4. Rausholen drücken → Datei wird extrahiert
+1. Datei auswählen – Beliebiges Dateiformat zum Verstecken auswählen
+2. BMP-Bild auswählen – 24-Bit BMP als Trägerdatei auswählen
+3. "Verstecken" – Datei in BMP einbetten (erzeugt <bild>.bmp.bak-Backup)
+4. "Rausholen" – Versteckte Datei aus modifiziertem BMP extrahieren
 
 Das Original-BMP wird als: `<bild>.bmp.bak` gesichert.
 
