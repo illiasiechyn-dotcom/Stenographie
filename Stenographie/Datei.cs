@@ -42,30 +42,33 @@ namespace Stenographie
 
         public static void Verstecken(string s_Dateipfad, string s_BMPpfad)
         {
-            if (!BMP.IstGueltigesBmp(s_BMPpfad))
-            {
-                
-            }
-            else
+            if (BMP.IstGueltigesBmp(s_BMPpfad) && s_Dateipfad != s_BMPpfad)
             {
                 byte[] aby_BMPDaten = Lesen(s_BMPpfad);
                 Datei.Schreiben(aby_BMPDaten, s_BMPpfad + ".bak");
-                if (!File.Exists(s_Dateipfad)) {
-                    MessageBox.Show("Fehler: Dateipfad ist nicht gültig", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                } 
-                else { 
-                byte[] aby_DateiBytes = Lesen(s_Dateipfad);
-                byte[] aby_komprimiert = RLE.Komprimieren(aby_DateiBytes);
-                if(aby_komprimiert.Length > BMP.KapazitaetBerechnen(s_BMPpfad))
+                if (!File.Exists(s_Dateipfad))
                 {
-                    MessageBox.Show("Fehler: BMP ist nicht groß genug.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Fehler: Dateipfad ist nicht gültig", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                else {
-                    byte[] aby_komprverschl = LSB.Verschuesseln(aby_BMPDaten, aby_komprimiert);
-                    Datei.Schreiben(aby_komprverschl, s_BMPpfad);
-                    MessageBox.Show("Erfolg: Datei wurde Erfolgreich versteckt", "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
+                else
+                {
+                    byte[] aby_DateiBytes = Lesen(s_Dateipfad);
+                    byte[] aby_komprimiert = RLE.Komprimieren(aby_DateiBytes);
+                    if (aby_komprimiert.Length > BMP.KapazitaetBerechnen(s_BMPpfad))
+                    {
+                        MessageBox.Show("Fehler: BMP ist nicht groß genug.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        byte[] aby_komprverschl = LSB.Verschuesseln(aby_BMPDaten, aby_komprimiert);
+                        Datei.Schreiben(aby_komprverschl, s_BMPpfad);
+                        MessageBox.Show("Erfolg: Datei wurde Erfolgreich versteckt", "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Fehler: BMP kann man nicht in sich selbst verstecken", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             } 
         }
 
