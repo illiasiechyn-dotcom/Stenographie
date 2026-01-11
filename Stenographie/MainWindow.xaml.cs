@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace Stenographie
 {
@@ -53,13 +54,18 @@ namespace Stenographie
         private void Button_Verstecken_Click(object sender, RoutedEventArgs e)
         {
             Datei.Verstecken(s_DateiPfad, s_BMPpfad);
-            if (BMP.IstGueltigesBmp(s_BMPpfad)) {
-                BitmapImage bmp = new BitmapImage();
-                bmp.BeginInit();
-                bmp.CacheOption = BitmapCacheOption.OnLoad; // wichtig!
-                bmp.UriSource = new Uri(s_BMPpfad);
-                bmp.EndInit();
-                BMPnachher.Source = bmp;
+            if (File.Exists(s_BMPpfad))
+                {
+                if (BMP.IstGueltigesBmp(s_BMPpfad))
+                {
+                    BitmapImage bmp = new BitmapImage();
+                    bmp.BeginInit();
+                    bmp.CacheOption = BitmapCacheOption.OnLoad; // wichtig!
+                    bmp.UriSource = new Uri(s_BMPpfad);
+                    bmp.EndInit();
+                    BMPnachher.Source = bmp;
+                }
+             
             }
             
         }
@@ -77,14 +83,17 @@ namespace Stenographie
         private void textBoxBMPPfad_TextChanged(object sender, TextChangedEventArgs e)
         {
             s_BMPpfad = textBoxBMPPfad.Text;
-            if (BMP.IstGueltigesBmp(s_BMPpfad))
+            if (File.Exists(s_BMPpfad))
             {
-                BitmapImage bmp = new BitmapImage();
-                bmp.BeginInit();
-                bmp.CacheOption = BitmapCacheOption.OnLoad; // wichtig!
-                bmp.UriSource = new Uri(s_BMPpfad);
-                bmp.EndInit();
-                BMPVorher.Source = bmp;
+                if (BMP.IstGueltigesBmp(s_BMPpfad))
+                {
+                    BitmapImage bmp = new BitmapImage();
+                    bmp.BeginInit();
+                    bmp.CacheOption = BitmapCacheOption.OnLoad; // wichtig!
+                    bmp.UriSource = new Uri(s_BMPpfad);
+                    bmp.EndInit();
+                    BMPVorher.Source = bmp;
+                }
             }
         }
     }

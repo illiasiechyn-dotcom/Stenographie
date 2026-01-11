@@ -13,7 +13,7 @@ namespace Stenographie
         {
             if (!File.Exists(s_DateiPfad))
             {
-                MessageBox.Show("Fehler: BMP ist existiert nicht", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Fehler: BMP existiert nicht", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
 

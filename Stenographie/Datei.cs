@@ -10,7 +10,7 @@ namespace Stenographie
         {
             FileStream fsRead = new FileStream(s_Dateipfad, FileMode.Open, FileAccess.Read);
             BinaryReader br = new BinaryReader(fsRead);
-            
+
             byte[] aby_DateiBytes = new byte[fsRead.Length];
             for (int i = 0; i < fsRead.Length; i++)
             {
@@ -22,9 +22,10 @@ namespace Stenographie
             return aby_DateiBytes;
         }
 
-        private static void Schreiben(byte[] daten, string zielpfad) 
+        private static void Schreiben(byte[] daten, string zielpfad)
         {
-            if (!File.Exists(zielpfad)) {
+            if (!File.Exists(zielpfad))
+            {
                 File.CreateText(zielpfad).Close();
             }
             FileStream fsWrite = new FileStream(zielpfad, FileMode.Create, FileAccess.Write);
@@ -66,10 +67,6 @@ namespace Stenographie
                     }
                 }
             }
-            else
-            {
-                MessageBox.Show("Fehler: BMP kann man nicht in sich selbst verstecken", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            } 
         }
 
 
@@ -77,7 +74,7 @@ namespace Stenographie
         {
             if (!BMP.IstGueltigesBmp(s_BMPpfad))
             {
-               
+
             }
             else
             {
