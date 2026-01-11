@@ -6,32 +6,22 @@ Zur besseren Kapazitätsausnutzung werden die eingebetteten Daten mittels **Run-
 
 ## Features
 
-    Dateiversteckung – Einbetten beliebiger Dateien in 24-Bit-BMP-Bilder
-
-    Datenwiederherstellung – Verlustfreie Extraktion der Originaldateien
-
-    RLE-Kompression – Run-Length Encoding für optimierte Kapazitätsauslastung
-
-    LSB-Steganographie – Least Significant Bit-Verfahren auf Byte-Ebene
-
-    Automatisches Backup – Sicherung des Original-BMP als .bak-Datei
-
-    Visuelle Vorschau – Vorher/Nachher-Darstellung der BMP-Dateien
-
-    Integrierte Validierung – Formatprüfung und Kapazitätskontrolle 
+1. Dateiversteckung - Einbetten beliebiger Dateien in 24-Bit-BMP-Bilder
+2. Datenwiederherstellung – Verlustfreie Extraktion der Originaldateien
+3. RLE-Kompression – Run-Length Encoding für optimierte Kapazitätsauslastung
+4. LSB-Steganographie – Least Significant Bit-Verfahren auf Byte-Ebene
+5. Automatisches Backup – Sicherung des Original-BMP als .bak-Datei
+6. Visuelle Vorschau – Vorher/Nachher-Darstellung der BMP-Dateien
+7. Integrierte Validierung – Formatprüfung und Kapazitätskontrolle 
 
 
 ## Funktionsweise
 
-    Kompression – Quelldatei wird mit RLE-Algorithmus komprimiert
-
-    Datenaufbereitung – Länge (4 Byte) + komprimierte Daten in Bitstream konvertiert
-
-    LSB-Einbettung – Bits werden in die niederwertigen Bits der RGB-Pixel geschrieben
-
-    Speicherung – Modifiziertes BMP wird gespeichert, Original als Backup erhalten
-
-    Extraktion – Umgekehrter Prozess: LSB-Auslesen → Dekompression → Originaldatei
+1. Kompression – Quelldatei wird mit RLE-Algorithmus komprimiert
+2. Datenaufbereitung – Länge (4 Byte) + komprimierte Daten in Bitstream konvertiert
+3. LSB-Einbettung – Bits werden in die niederwertigen Bits der RGB-Pixel geschrieben
+4. Speicherung – Modifiziertes BMP wird gespeichert, Original als Backup erhalten
+5. Extraktion – Umgekehrter Prozess: LSB-Auslesen → Dekompression → Originaldatei
 
 Datenstruktur: [4-Byte-Längenfeld] + [RLE-komprimierte Nutzdaten]
 
