@@ -6,7 +6,7 @@ Zur besseren Kapazitätsausnutzung werden die eingebetteten Daten mittels **Run-
 
 ## Features
 
-1.Dateiversteckung - Einbetten beliebiger Dateien in 24-Bit-BMP-Bilder
+1. Dateiversteckung - Einbetten beliebiger Dateien in 24-Bit-BMP-Bilder
 2. Datenwiederherstellung – Verlustfreie Extraktion der Originaldateien
 3. RLE-Kompression – Run-Length Encoding für optimierte Kapazitätsauslastung
 4. LSB-Steganographie – Least Significant Bit-Verfahren auf Byte-Ebene
