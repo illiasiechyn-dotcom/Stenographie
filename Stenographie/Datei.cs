@@ -4,25 +4,25 @@ using System.Windows;
 
 namespace Stenographie
 {
-    public static class Datei
+    public static class Datei //Datei-Ein- und -Ausgabe
     {
-        private static byte[] Lesen(string s_Dateipfad)
+        private static byte[] Lesen(string s_Dateipfad) //Datei lesen und deren Inhalt als Byte-Array zurückgeben
         {
-            FileStream fsRead = new FileStream(s_Dateipfad, FileMode.Open, FileAccess.Read);
-            BinaryReader br = new BinaryReader(fsRead);
+            FileStream fsRead = new FileStream(s_Dateipfad, FileMode.Open, FileAccess.Read); //Datei im Lesemodus öffnen
+            BinaryReader br = new BinaryReader(fsRead); //Objectder Klasse BinaryReader erstellen, um Binärdaten zu lesen
 
-            byte[] aby_DateiBytes = new byte[fsRead.Length];
+            byte[] aby_DateiBytes = new byte[fsRead.Length]; //ein Byte-Array mit der gleichen Länge wie die Datei erstellen
             for (int i = 0; i < fsRead.Length; i++)
             {
                 aby_DateiBytes[i] = br.ReadByte();
-            }
+            } //Datei Byte für Byte lesen und in das Array speichern
 
             br.Close();
             fsRead.Close();
             return aby_DateiBytes;
         }
 
-        private static void Schreiben(byte[] daten, string zielpfad)
+        private static void Schreiben(byte[] daten, string zielpfad) //ein Byte-Array in eine Datei schreiben
         {
             if (!File.Exists(zielpfad))
             {
@@ -34,9 +34,9 @@ namespace Stenographie
             for (int i = 0; i < daten.Length; i++)
             {
                 bw.Write(daten[i]);
-            }
+            } //alle Bytes einzeln in die Datei schreiben
 
-            bw.Flush();
+            bw.Flush(); //Schreibpuffer leeren und Datei sichern
             bw.Close();
             fsWrite.Close();
         }
@@ -54,16 +54,16 @@ namespace Stenographie
                     else
                     {
                         byte[] aby_BMPDaten = Lesen(s_BMPpfad);
-                        Datei.Schreiben(aby_BMPDaten, s_BMPpfad + ".bak");
+                        Datei.Schreiben(aby_BMPDaten, s_BMPpfad + ".bak"); //eine Sicherungskopie der BMP-Datei erstellen
                         byte[] aby_DateiBytes = Lesen(s_Dateipfad);
-                        byte[] aby_komprimiert = RLE.Komprimieren(aby_DateiBytes);
+                        byte[] aby_komprimiert = RLE.Komprimieren(aby_DateiBytes); //die Datei mit den RLE(Run-Length-Encoding)-Verfahren komprimieren
                         if (aby_komprimiert.Length > BMP.KapazitaetBerechnen(s_BMPpfad))
                         {
                             MessageBox.Show("Fehler: BMP ist nicht groß genug.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                         else
                         {
-                            byte[] aby_komprverschl = LSB.Verschuesseln(aby_BMPDaten, aby_komprimiert);
+                            byte[] aby_komprverschl = LSB.Verschuesseln(aby_BMPDaten, aby_komprimiert); //LSB - Least Significant Bit
                             Datei.Schreiben(aby_komprverschl, s_BMPpfad);
                             MessageBox.Show("Erfolg: Datei wurde Erfolgreich versteckt", "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
@@ -73,7 +73,7 @@ namespace Stenographie
             }
             else
             {
-                MessageBox.Show("Fehler: Kann man nich in sich selbst Verstecken", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Fehler: BMP-Datei ist identisch mit der Queldatei.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -83,13 +83,13 @@ namespace Stenographie
 
             if (s_DateiPfad == null || s_DateiPfad == "")
             {
-                MessageBox.Show("Fehler: Dateipfad ist nicht gültig", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Fehler: Dateipfad ist nicht gültig.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
                 if (s_DateiPfad == s_BMPpfad)
                 {
-                    MessageBox.Show("Fehler: Kann man nich aus sich selbst Rausholen", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Fehler: Datei kann nicht rausgeholt werden.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else if (BMP.IstGueltigesBmp(s_BMPpfad))
                 {
