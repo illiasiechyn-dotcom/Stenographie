@@ -45,14 +45,14 @@ namespace Stenographie
         {
             if (BMP.IstGueltigesBmp(s_BMPpfad) && s_Dateipfad != s_BMPpfad)
             {
-                byte[] aby_BMPDaten = Lesen(s_BMPpfad);
-                Datei.Schreiben(aby_BMPDaten, s_BMPpfad + ".bak");
                 if (!File.Exists(s_Dateipfad))
                 {
                     MessageBox.Show("Fehler: Dateipfad ist nicht gültig", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
+                    byte[] aby_BMPDaten = Lesen(s_BMPpfad);
+                    Datei.Schreiben(aby_BMPDaten, s_BMPpfad + ".bak");
                     byte[] aby_DateiBytes = Lesen(s_Dateipfad);
                     byte[] aby_komprimiert = RLE.Komprimieren(aby_DateiBytes);
                     if (aby_komprimiert.Length > BMP.KapazitaetBerechnen(s_BMPpfad))
@@ -72,21 +72,18 @@ namespace Stenographie
 
         public static void Rausholen(string s_DateiPfad, string s_BMPpfad)
         {
-            if (!BMP.IstGueltigesBmp(s_BMPpfad))
-            {
 
+            if (s_DateiPfad == null || s_DateiPfad == "")
+            {
+                MessageBox.Show("Fehler: Dateipfad ist nicht gültig", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
-                byte[] aby_BMPDaten = Lesen(s_BMPpfad);
-                byte[] aby_komprentschl = LSB.Entschluesseln(aby_BMPDaten);
-                byte[] aby_rausgeholt = RLE.Dekomprimieren(aby_komprentschl);
-                if (s_DateiPfad == null)
+                if (BMP.IstGueltigesBmp(s_BMPpfad))
                 {
-                    MessageBox.Show("Fehler: Dateipfad ist nicht gültig", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else
-                {
+                    byte[] aby_BMPDaten = Lesen(s_BMPpfad);
+                    byte[] aby_komprentschl = LSB.Entschluesseln(aby_BMPDaten);
+                    byte[] aby_rausgeholt = RLE.Dekomprimieren(aby_komprentschl);
                     Datei.Schreiben(aby_rausgeholt, s_DateiPfad);
                     MessageBox.Show("Erfolg: Datei wurde Erfolgreich rausgeholt", "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
