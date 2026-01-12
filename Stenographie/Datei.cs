@@ -43,29 +43,37 @@ namespace Stenographie
 
         public static void Verstecken(string s_Dateipfad, string s_BMPpfad)
         {
-            if (BMP.IstGueltigesBmp(s_BMPpfad) && s_Dateipfad != s_BMPpfad)
+            if (s_Dateipfad != s_BMPpfad)
             {
-                if (!File.Exists(s_Dateipfad))
+                if (BMP.IstGueltigesBmp(s_BMPpfad))
                 {
-                    MessageBox.Show("Fehler: Dateipfad ist nicht gültig", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else
-                {
-                    byte[] aby_BMPDaten = Lesen(s_BMPpfad);
-                    Datei.Schreiben(aby_BMPDaten, s_BMPpfad + ".bak");
-                    byte[] aby_DateiBytes = Lesen(s_Dateipfad);
-                    byte[] aby_komprimiert = RLE.Komprimieren(aby_DateiBytes);
-                    if (aby_komprimiert.Length > BMP.KapazitaetBerechnen(s_BMPpfad))
+                    if (!File.Exists(s_Dateipfad))
                     {
-                        MessageBox.Show("Fehler: BMP ist nicht groß genug.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Fehler: Dateipfad ist nicht gültig", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else
                     {
-                        byte[] aby_komprverschl = LSB.Verschuesseln(aby_BMPDaten, aby_komprimiert);
-                        Datei.Schreiben(aby_komprverschl, s_BMPpfad);
-                        MessageBox.Show("Erfolg: Datei wurde Erfolgreich versteckt", "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
+                        byte[] aby_BMPDaten = Lesen(s_BMPpfad);
+                        Datei.Schreiben(aby_BMPDaten, s_BMPpfad + ".bak");
+                        byte[] aby_DateiBytes = Lesen(s_Dateipfad);
+                        byte[] aby_komprimiert = RLE.Komprimieren(aby_DateiBytes);
+                        if (aby_komprimiert.Length > BMP.KapazitaetBerechnen(s_BMPpfad))
+                        {
+                            MessageBox.Show("Fehler: BMP ist nicht groß genug.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        else
+                        {
+                            byte[] aby_komprverschl = LSB.Verschuesseln(aby_BMPDaten, aby_komprimiert);
+                            Datei.Schreiben(aby_komprverschl, s_BMPpfad);
+                            MessageBox.Show("Erfolg: Datei wurde Erfolgreich versteckt", "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+
                     }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Fehler: Kann man nich in sich selbst Verstecken", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -79,7 +87,11 @@ namespace Stenographie
             }
             else
             {
-                if (BMP.IstGueltigesBmp(s_BMPpfad))
+                if (s_DateiPfad == s_BMPpfad)
+                {
+                    MessageBox.Show("Fehler: Kann man nich aus sich selbst Rausholen", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else if (BMP.IstGueltigesBmp(s_BMPpfad))
                 {
                     byte[] aby_BMPDaten = Lesen(s_BMPpfad);
                     byte[] aby_komprentschl = LSB.Entschluesseln(aby_BMPDaten);
